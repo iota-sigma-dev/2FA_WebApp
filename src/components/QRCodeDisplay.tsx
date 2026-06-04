@@ -15,7 +15,7 @@ export const QRCodeDisplay = ({ secret, issuer, account }: QRCodeDisplayProps) =
       <div className="qr-card">
         <QRCodeSVG
           value={otpauth}
-          size={420}
+          size={560}
           level={"Q"}
           includeMargin={true}
           className="qr-code"
