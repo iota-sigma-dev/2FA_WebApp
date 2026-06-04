@@ -144,8 +144,8 @@ body {
 /* QR CODE DISPLAY */
 .qr-container {
   flex: 1;
-  min-width: 320px;
-  max-width: 400px;
+  min-width: 400px;
+  max-width: 560px;
   display: flex;
   justify-content: center;
 }
