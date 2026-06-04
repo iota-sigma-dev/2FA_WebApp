@@ -139,7 +139,59 @@ body {
 .time-text {
   font-size: 0.95rem;
   color: var(--text-muted);
+  margin-bottom: 2rem;
 }
+
+/* AUTH LINKS DISPLAY */
+.auth-links-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+
+.auth-links-title {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.auth-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.auth-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.auth-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.auth-link.google-auth:hover {
+  border-color: #4285F4;
+  box-shadow: 0 0 10px rgba(66, 133, 244, 0.3);
+}
+
+.auth-link.ms-auth:hover {
+  border-color: #00a4ef;
+  box-shadow: 0 0 10px rgba(0, 164, 239, 0.3);
+}
+
 
 /* QR CODE DISPLAY */
 .qr-container {
