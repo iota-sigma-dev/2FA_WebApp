@@ -61,12 +61,11 @@ body {
 
 .app-main {
   display: flex;
-  flex-direction: row;
-  gap: 4rem;
+  flex-direction: column;
+  gap: 3rem;
   align-items: center;
   justify-content: center;
   width: 100%;
-  flex-wrap: wrap;
 }
 
 /* TOTP DISPLAY */
@@ -145,7 +144,8 @@ body {
 .qr-container {
   flex: 1;
   min-width: 400px;
-  max-width: 560px;
+  max-width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
