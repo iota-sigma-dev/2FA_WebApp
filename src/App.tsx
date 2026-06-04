@@ -13,15 +13,23 @@ function App() {
   const [timeRemaining, setTimeRemaining] = useState(30);
 
   useEffect(() => {
-    const updateTotp = async () => {
+    let timerId: ReturnType<typeof setTimeout>;
+
+    const tick = async () => {
+      // Leer el tiempo real del sistema en cada tick
       setTimeRemaining(getTimeRemaining());
       const newToken = await generateTOTP(SECRET);
       setToken(newToken);
+
+      // Calcular los ms exactos que faltan para el próximo segundo del reloj.
+      // Esto ancla cada disparo al boundary real y elimina el drift acumulado
+      // de setInterval (que no garantiza exactitud).
+      const msUntilNextSecond = 1000 - (Date.now() % 1000);
+      timerId = setTimeout(tick, msUntilNextSecond);
     };
 
-    updateTotp();
-    const interval = setInterval(updateTotp, 1000);
-    return () => clearInterval(interval);
+    tick();
+    return () => clearTimeout(timerId);
   }, []);
 
   return (
