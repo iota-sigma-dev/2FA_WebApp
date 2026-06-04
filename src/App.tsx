@@ -16,21 +16,34 @@ function App() {
     let timerId: ReturnType<typeof setTimeout>;
 
     const tick = async () => {
-      // Leer el tiempo real del sistema en cada tick
-      setTimeRemaining(getTimeRemaining());
-      const newToken = await generateTOTP(SECRET);
-      setToken(newToken);
-
-      // Calcular los ms exactos que faltan para el próximo segundo del reloj.
-      // Esto ancla cada disparo al boundary real y elimina el drift acumulado
-      // de setInterval (que no garantiza exactitud).
+      // 1. Programar el PRÓXIMO tick de forma inmediata y sincrónica,
+      //    ANTES de cualquier operación async. Esto garantiza que el scheduling
+      //    no acumule el delay de crypto.subtle (~2-5ms por llamada).
       const msUntilNextSecond = 1000 - (Date.now() % 1000);
       timerId = setTimeout(tick, msUntilNextSecond);
+
+      // 2. Actualizar el countdown con el reloj real del sistema
+      setTimeRemaining(getTimeRemaining());
+
+      // 3. Generar el token (async) y actualizar la UI
+      const newToken = await generateTOTP(SECRET);
+      setToken(newToken);
     };
 
-    tick();
+    // Alinear el primer tick al próximo boundary de segundo del sistema,
+    // y actualizar la UI de forma inmediata mientras tanto.
+    const msUntilNextSecond = 1000 - (Date.now() % 1000);
+    timerId = setTimeout(tick, msUntilNextSecond);
+
+    // Actualización inmediata al montar (sin esperar al próximo segundo)
+    (async () => {
+      setTimeRemaining(getTimeRemaining());
+      setToken(await generateTOTP(SECRET));
+    })();
+
     return () => clearTimeout(timerId);
   }, []);
+
 
   return (
     <div className="app-container">
