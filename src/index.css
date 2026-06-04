@@ -61,11 +61,12 @@ body {
 
 .app-main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 3rem;
   align-items: center;
   justify-content: center;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 /* TOTP DISPLAY */
@@ -143,9 +144,8 @@ body {
 /* QR CODE DISPLAY */
 .qr-container {
   flex: 1;
-  min-width: 400px;
-  max-width: 750px;
-  width: 100%;
+  min-width: 350px;
+  max-width: 480px;
   display: flex;
   justify-content: center;
 }
